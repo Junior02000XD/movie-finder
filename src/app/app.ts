@@ -1,6 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+export class AppModule {}
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
