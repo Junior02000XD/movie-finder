@@ -2,18 +2,12 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { NotificationService } from '../../shared/utils/notification';
 import { catchError } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const notifier = inject(NotificationService);
 
-  const clonedRequest = req.clone({
-    setHeaders: {
-      Authorization: `Bearer ${environment.bearerToken}`
-    }
-  });
-
-  return next(clonedRequest).pipe(
+  return next(req).pipe(
     catchError((error) => {
       let msg = 'Error desconocido en la solicitud HTTP';
 
@@ -26,7 +20,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       }
 
       notifier.showError(msg);
-      throw error;
+      return throwError(() => error);
     })
   );
 };

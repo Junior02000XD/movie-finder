@@ -1,0 +1,13 @@
+.toast-container {
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: all;
+}
+/*
+.toast-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+*/

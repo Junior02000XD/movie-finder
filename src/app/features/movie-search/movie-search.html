@@ -9,4 +9,10 @@
   <!-- Loading spinner -->
   <app-loading-spinner *ngIf="loading"></app-loading-spinner>
   <app-movie-list *ngIf="!loading" [movies]="movies"></app-movie-list>
+
+  <div class="d-flex justify-content-between my-3" *ngIf="totalPages > 1">
+    <button class="btn btn-outline-primary" (click)="prevPage()" [disabled]="page === 1">Anterior</button>
+    <span>Página {{ page }} de {{ totalPages }}</span>
+    <button class="btn btn-outline-primary" (click)="nextPage()" [disabled]="page === totalPages">Siguiente</button>
+  </div>
 </div>

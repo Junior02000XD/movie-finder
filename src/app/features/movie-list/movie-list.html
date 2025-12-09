@@ -1,16 +1,16 @@
 <div class="row mt-3">
-  <div class="col-md-3 mb-3" *ngFor="let movie of movies">
-    <div class="card h-100">
-      <img
-        [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w300' + movie.poster_path : 'assets/no-image.png'"
-        class="card-img-top"
-        alt="{{ movie.title }}"
-      />
-      <div class="card-body">
-        <h5 class="card-title">{{ movie.title }}</h5>
-        <p class="card-text">{{ movie.release_date }}</p>
-        <a [routerLink]="['/movie', movie.id]" class="btn btn-sm btn-outline-primary">Ver detalle</a>
-      </div>
+    <div class="col-md-3 mb-3" *ngFor="let movie of movies">
+        <div class="card h-100">
+            <img
+                [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w300' + movie.poster_path : 'assets/no-image.png'"
+                class="card-img-top"
+                alt="{{ movie.title }}"
+            />
+            <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+                <p class="card-text">{{ movie.release_date }}</p>
+                <a [routerLink]="['/movie', movie.id]" class="btn btn-sm btn-outline-primary">Ver detalle</a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

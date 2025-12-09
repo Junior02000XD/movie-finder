@@ -10,13 +10,20 @@ export class MovieService {
   constructor(private http: HttpClient) {}
 
   // Buscar películas
-  searchMovies(query: string): Observable<any> {
-    const params = new HttpParams().set('query', query);
+  searchMovies(query: string, page: number = 1): Observable<any> {
+    const params = new HttpParams()
+      .set('query', query)
+      .set('page', page.toString())
+      .set('api_key', environment.apiReadToken); // <-- aquí
+
     return this.http.get(`${this.baseUrl}/search/movie`, { params });
   }
 
   // Detalle de película
   getMovieDetail(id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/movie/${id}`);
+    const params = new HttpParams()
+      .set('api_key', environment.apiReadToken); // <-- aquí
+
+    return this.http.get(`${this.baseUrl}/movie/${id}`, { params });
   }
 }

@@ -6,6 +6,7 @@ import { MovieService } from '../../core/services/movie';
 import { LoadingSpinner } from '../../shared/components/loading-spinner/loading-spinner';
 import { NotificationService } from '../../shared/utils/notification';
 import { MovieList } from '../movie-list/movie-list';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -19,27 +20,45 @@ export class MovieSearch {
   movies: any[] = [];
   loading = false;
 
-  constructor(private movieService: MovieService, private notifier: NotificationService) {}
+  constructor(private movieService: MovieService, private notifier: NotificationService, private cdr: ChangeDetectorRef) {}
 
-  search() {
-    if (!this.query.trim()) return;
+  page = 1;
+  totalPages = 1;
 
-    this.loading = true;
-    this.movies = [];
+  search(page: number = 1) {
+      if (!this.query.trim()) return;
 
-    this.movieService.searchMovies(this.query).subscribe({
-      next: (res) => {
-        this.movies = res.results;
-        if (this.movies.length === 0) {
-          this.notifier.showInfo('No se encontraron resultados.');
+      this.loading = true;
+      this.movies = [];
+
+      this.movieService.searchMovies(this.query, page).subscribe({
+        next: (res) => {
+          this.movies = res.results;
+          this.totalPages = res.total_pages;
+          this.page = page;
+          if (this.movies.length === 0) {
+            this.notifier.showInfo('No se encontraron resultados.');
+          }
+          this.loading = false;
+          this.cdr.detectChanges();
+          this.notifier.showSuccess("Películas cargadas correctamente");
+        },
+        error: (err) => {
+          this.loading = false;
+          this.notifier.showInfo('Error cargando los resultados.');
         }
-        this.loading = false;
-      },
-      error: (err) => {
-        this.loading = false;
-        console.error(err);
-        // El interceptor ya muestra alert con error, aquí opcional
-      }
-    });
+      });
+    }
+
+  nextPage() {
+    if (this.page < this.totalPages) {
+      this.search(this.page + 1);
+    }
+  }
+
+  prevPage() {
+    if (this.page > 1) {
+      this.search(this.page - 1);
+    }
   }
 }
