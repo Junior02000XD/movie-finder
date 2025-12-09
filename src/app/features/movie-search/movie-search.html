@@ -1,1 +1,12 @@
-<p>movie-search works!</p>
+<div class="container py-4">
+  <h2 class="mb-3">Buscar Películas</h2>
+
+  <div class="input-group mb-3">
+    <input class="form-control" [(ngModel)]="query" placeholder="Nombre de película..." />
+    <button class="btn btn-primary" (click)="search()">Buscar</button>
+  </div>
+
+  <!-- Loading spinner -->
+  <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+  <app-movie-list *ngIf="!loading" [movies]="movies"></app-movie-list>
+</div>

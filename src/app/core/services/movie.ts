@@ -5,15 +5,13 @@ import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class MovieService {
-
-  private baseUrl = environment.omdbApiUrl;
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  // Búsqueda de películas
+  // Buscar películas
   searchMovies(query: string): Observable<any> {
     const params = new HttpParams().set('query', query);
-
     return this.http.get(`${this.baseUrl}/search/movie`, { params });
   }
 

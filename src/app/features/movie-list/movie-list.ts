@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
+  standalone: true,
   selector: 'app-movie-list',
-  imports: [],
   templateUrl: './movie-list.html',
-  styleUrl: './movie-list.css',
+  styleUrls: ['./movie-list.css'],
+  imports: [CommonModule, RouterModule]
 })
 export class MovieList {
-
+  @Input() movies: any[] = [];
 }

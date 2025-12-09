@@ -9,12 +9,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   const clonedRequest = req.clone({
     setHeaders: {
-      Authorization: `Bearer ${environment.apiKey}`
+      Authorization: `Bearer ${environment.bearerToken}`
     }
   });
 
   return next(clonedRequest).pipe(
-    // Manejo de errores centralizado
     catchError((error) => {
       let msg = 'Error desconocido en la solicitud HTTP';
 
@@ -27,7 +26,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       }
 
       notifier.showError(msg);
-
       throw error;
     })
   );
