@@ -45,6 +45,7 @@ export class MovieSearch {
         },
         error: (err) => {
           this.loading = false;
+          this.cdr.detectChanges();
           this.notifier.showInfo('Error cargando los resultados.');
         }
       });

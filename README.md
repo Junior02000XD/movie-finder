@@ -104,7 +104,7 @@ Esta es una aplicación de ejemplo desarrollada en Angular para buscar y ver det
 Debido a políticas de CORS de TMDB, no se debe usar `ng serve` directamente.  
 Se debe usar el comando con el proxy configurado:
 
-   ng serve --proxy-config proxy.conf.json
+   `ng serve --proxy-config proxy.conf.json`
 
 El archivo `proxy.conf.json` redirige las solicitudes a la API de TMDB evitando errores de CORS.  
 

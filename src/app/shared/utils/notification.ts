@@ -24,7 +24,7 @@ export class NotificationService {
     // Auto-close a los 3 segundos
     setTimeout(() => {
       this.removeById(id);
-    }, 3000);
+    }, 5000);
   }
 
   showSuccess(message: string) {

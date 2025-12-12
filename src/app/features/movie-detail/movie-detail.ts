@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MovieService } from '../../core/services/movie';
 import { LoadingSpinner } from '../../shared/components/loading-spinner/loading-spinner';
 import { NotificationService } from '../../shared/utils/notification';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -19,7 +20,8 @@ export class MovieDetail implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private movieService: MovieService,
-    private notifier: NotificationService
+    private notifier: NotificationService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -39,10 +41,12 @@ export class MovieDetail implements OnInit {
       next: (data) => {
         this.movie = data;
         this.loading = false; // <-- Aquí desactivas el spinner
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
         this.loading = false; // <-- También desactivas spinner si hay error
+        this.cdr.detectChanges();
         this.notifier.showError('Error cargando detalle de la película');
       }
     });
